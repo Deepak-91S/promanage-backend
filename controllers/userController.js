@@ -80,7 +80,9 @@ exports.logout = BigPromise(async (req, res, next) => {
 
 exports.changePassword = BigPromise(async (req, res, next) => {
   try {
-    const user = await User.findById(req.user._id).select("+password");
+    const userId = req.user._id;
+
+    const user = await User.findById(userId).select("+password");
 
     if (!user) {
       return next(new CustomError("User not found", 400));
